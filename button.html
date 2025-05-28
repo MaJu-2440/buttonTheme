@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Mini-Projetos</title>
+</head>
+<body>
+    <button id="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+</body>
+<script>
+    // Carrega a preferência do usuário do localStorage
+    const currentTheme = localStorage.getItem('theme');
+    const body = document.querySelector('body');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+        } else {
+            // Define o tema padrão (claro) se não houver preferência
+            body.classList.add('light-theme');
+        }
+
+        const themeButton = document.getElementById('theme-toggle');
+        themeButton.addEventListener('click', () => {
+            // Alterna entre os temas claro e escuro
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light-theme');
+            }
+    });
+</script>
+</html>

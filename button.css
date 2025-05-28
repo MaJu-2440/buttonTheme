@@ -1,0 +1,119 @@
+/* Reset básico e Box-sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Cores do gradiente roxo */
+    --purple-light: #b366ff; /* Roxo claro */
+    --purple-dark: #6e00ff;  /* Roxo escuro */
+
+    /* Cores do tema (ajustadas pelo JS) */
+    --background-light: #f0f2f5;
+    --text-color-light: #333;
+
+    --background-dark: #1a1a2e;
+    --text-color-dark: #e0e0e0;
+
+    /* Transição para suavidade */
+    --transition-speed: 0.5s;
+    --transition-timing: ease-in-out;
+}
+
+/* Estilos do corpo da página (para alternância de tema) */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    transition: background-color var(--transition-speed) var(--transition-timing), 
+                color var(--transition-speed) var(--transition-timing);
+}
+
+/* Tema Claro */
+body.light-theme {
+    background-color: var(--background-light);
+    color: var(--text-color-light);
+}
+
+/* Tema Escuro */
+body.dark-theme {
+    background-color: var(--background-dark);
+    color: var(--text-color-dark);
+}
+
+/* Estilo do Botão */
+#theme-toggle {
+    background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple-dark) 100%);
+    color: white; /* Cor dos ícones */
+    border: none;
+    border-radius: 50px; /* Borda arredondada para um formato de pílula */
+    padding: 30px 90px;
+    font-size: 2em; /* Tamanho dos ícones */
+    cursor: pointer;
+    position: relative; /* Para posicionar os ícones */
+    overflow: hidden; /* Garante que os ícones fiquem dentro do botão */
+    outline: none; /* Remove o contorno padrão do foco */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: transform 0.3s var(--transition-timing), 
+                box-shadow 0.3s var(--transition-timing),
+                background 0.5s var(--transition-timing); /* Transição para hover/click */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px; /* Garante que o botão tenha um tamanho mínimo */
+}
+
+/* Animação do gradiente no hover */
+#theme-toggle:hover {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-light) 100%); /* Inverte ou ajusta o gradiente */
+    transform: translateY(-5px); /* Efeito de "levantar" */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+}
+
+/* Animação no click (estado 'active') */
+#theme-toggle:active {
+    transform: translateY(0); /* Retorna para a posição original */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Sombra menos intensa */
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out; /* Transição mais rápida para o click */
+    background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple-dark) 100%); /* Garante que o gradiente volte ao normal */
+}
+
+/* Estilos dos Ícones (Sol e Lua) */
+#theme-toggle i {
+    position: absolute; /* Permite que os ícones se sobreponham */
+    transition: opacity 0.3s var(--transition-timing), 
+                transform 0.3s var(--transition-timing);
+    font-size: 1.2em; /* Tamanho do ícone, ajuste conforme necessário */
+}
+
+/* Esconde o Sol por padrão e mostra a Lua no tema escuro */
+body.light-theme #theme-toggle .fa-sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+body.light-theme #theme-toggle .fa-moon {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg); /* Faz a lua girar para fora */
+}
+
+/* Mostra a Lua e esconde o Sol no tema escuro */
+body.dark-theme #theme-toggle .fa-sun {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg); /* Faz o sol girar para fora */
+}
+
+body.dark-theme #theme-toggle .fa-moon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Foco para acessibilidade */
+#theme-toggle:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.7); /* Contorno branco com transparência */
+    outline-offset: 4px; /* Espaçamento do contorno */
+}
